@@ -248,4 +248,17 @@ color: gold;
 }
 
 
+.remove {
+    background-color: #ccc;
+    color: #000;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.remove:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+
 
