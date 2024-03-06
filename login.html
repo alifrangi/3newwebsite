@@ -1,12 +1,49 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HustlersUniversity</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Login - CompanyCo</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginBtn = document.querySelector('.login-btn');
+            const messageBox = document.getElementById('messageBoxContainer');
+
+            loginBtn.addEventListener('click', function (event) {
+                event.preventDefault(); 
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                
+                fetch('https://jsonplaceholder.typicode.com/users')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch user data');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const user = data.find(user => user.username === username && user.email === password);
+                        if (user) {
+                            messageBox.textContent = 'Login successful!';
+                            messageBox.classList.remove('error');
+                            messageBox.classList.add('success');
+                        } else {
+                            messageBox.textContent = 'Invalid username or password!';
+                            messageBox.classList.remove('success');
+                            messageBox.classList.add('error');
+                        }
+                    })
+                    .catch(error => {
+                        alert(error.message); // Display error message if API call fails
+                    });
+            });
+        });
+    </script>
 </head>
+
 <body>
     <!-- Header Section -->
     <header class="header">
@@ -14,7 +51,7 @@
             <img src="logo.png" alt="Company Logo">
         </div>
         <div class="company-name">
-            Company Name
+            HustlersUniversity
         </div>
     </header>
 
@@ -23,26 +60,32 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="products.html" class="nav-link">Products</a>
         <a href="contact.html" class="nav-link">Contact</a>
-        <a href="login.html" class="nav-link">Login</a> 
+        <a href="login.html" class="nav-link">Login</a>
     </nav>
 
     <main>
         <section class="login-form">
-            <form action="#" method="post">
+            <form>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required placeholder="Enter your username">
-
+                <br>
+                <br>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required placeholder="Enter your password">
-
-                <button type="submit" class="login-btn">Login</button>
-                 <p>Don't have an account? <a href="signup.html" class="signup-link">Sign up here</a>.</p>
+                <br>
+                <br>
+                <button type="button" class="login-btn">Login</button>
+                <br>
+                <br>
+                <p>Don't have an account? <a href="signup.html" class="signup-link">Sign up here</a>.</p>
             </form>
         </section>
+        <div id="messageBoxContainer" class="message-box"></div>
     </main>
 
     <footer class="footer">
-        <p>&copy; 2024 Companyco. All rights reserved.</p>
+        <p>&copy; 2024 HustlersUniversity. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
