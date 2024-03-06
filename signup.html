@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HustlersUniversity</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="Company Logo">
+        </div>
+        <div class="company-name">
+            HustlersUniversity
+        </div>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="login.html" class="nav-link">Login</a>
+    </nav>
+
+    <main>
+        <section class="signup-form">
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
+                <br>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+                <br>
+                <br>
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password">
+                <br>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                <br>
+                <br>
+                <button type="button" id='signup-btn' class="signup-btn">Sign Up</button>
+                <br>
+            </form>
+        </section>
+        <div id="messageBoxContainer" class="message-box"></div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 HustlersUniversity. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function (){
+            document.getElementById('signup-btn').addEventListener('click', function () {
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                var confirmPassword = document.getElementById('confirm-password').value;
+                var email = document.getElementById('email').value;
+                var errorMessage = '';
+
+                if (!username.match(/^[a-zA-Z][a-zA-Z0-9_-]{3,20}$/)) {
+                    errorMessage += 'Invalid username.\n';
+                }
+
+                // Password validation
+                if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_=+\[\]{}|;:'",.<>?/`~])[a-zA-Z0-9!@#$%^&*()-_=+\[\]{}|;:'",.<>?/`~]{8,}$/)) {
+                    errorMessage += 'Invalid password.\n';
+                }
+
+                // Email validation
+                if (!email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}&/)) {
+                    errorMessage += 'Invalid email address.\n';
+                }
+
+                // Confirm Password validation
+                if (password !== confirmPassword) {
+                    errorMessage += 'Passwords do not match.\n';
+                }
+
+                // Display error message or success message
+                var messageBox = document.getElementById('message-box');
+                if (errorMessage) {
+                    messageBoxContainer.style.display = 'block';
+                    messageBoxContainer.innerHTML = '<p>' + errorMessage + '</p>';
+                } else {
+                    messageBoxContainer.style.display = 'block';
+                    messageBoxContainer.innerHTML = '<p>Signup successful!</p>';
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
